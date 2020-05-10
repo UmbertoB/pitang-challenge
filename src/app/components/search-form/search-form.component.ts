@@ -1,62 +1,45 @@
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { GithubApiService } from 'src/app/common/services/github/github-api.service';
+import { DataPersistenceService } from 'src/app/common/services/data-persistence/data-persistence.service';
+import { RecentSearchStorage, DataPersistenceKeys } from 'src/app/common/services/data-persistence/data-persistence.types';
 
-export interface State {
-  flag: string;
-  name: string;
-  population: string;
-}
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss']
 })
-export class SearchFormComponent {
-  stateCtrl = new FormControl();
-  filteredStates: Observable<State[]>;
+export class SearchFormComponent implements OnInit {
+  searchCtrl = new FormControl('', Validators.required);
+  recentSearches: RecentSearchStorage[];
 
-  states: State[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
+  constructor(
+    private githubApiService: GithubApiService,
+    private recentSearchesDPS: DataPersistenceService<RecentSearchStorage>
+  ) { }
+
+  ngOnInit(): void {
+    this.updateRecentSearchesList();
+  }
+
+  public searchUser() {
+    if (this.searchCtrl.valid) {
+      if (this.recentSearchesDPS.itemExistsInStorage(DataPersistenceKeys.RECENT_SEARCHES, 'searchTerm', this.searchCtrl.value)) {
+        this.recentSearchesDPS.update(DataPersistenceKeys.RECENT_SEARCHES, { timestamp: new Date(), searchTerm: this.searchCtrl.value }, 'searchTerm');
+      } else {
+        this.recentSearchesDPS.create(DataPersistenceKeys.RECENT_SEARCHES, { timestamp: new Date(), searchTerm: this.searchCtrl.value });
+      }
+
+      this.updateRecentSearchesList();
+    } else {
+      alert('preencha o input');
     }
-  ];
-
-  constructor(private githubApiService: GithubApiService) {
-    this.filteredStates = this.stateCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map(state => state ? this._filterStates(state) : this.states.slice())
-      );
   }
 
-  private _filterStates(value: string): State[] {
-    this.githubApiService.search(value).subscribe(res => console.log(res));
-    const filterValue = value.toLowerCase();
-
-    return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
+  private updateRecentSearchesList() {
+    this.recentSearches = this.recentSearchesDPS.read(DataPersistenceKeys.RECENT_SEARCHES) || [];
   }
+
 }

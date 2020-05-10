@@ -1,14 +1,27 @@
-<form class="example-form">
-    <mat-form-field class="search-input-wrapper">
-        <input matInput placeholder="Buscar" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+<form class="example-form" (submit)="searchUser()">
+
+    <!-- search input field -->
+    <mat-form-field class="search-input-wrapper" appearance="fill">
+        <input matInput placeholder="Buscar" aria-label="State" [matAutocomplete]="auto" [formControl]="searchCtrl">
+
         <mat-autocomplete #auto="matAutocomplete">
 
-            <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-                <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
-                <span>{{state.name}}</span> |
-                <small>Population: {{state.population}}</small>
-            </mat-option>
+            <mat-optgroup label="Buscas Recentes">
+                <mat-option *ngFor="let recentSearch of recentSearches  | sortBy:'desc':'timestamp'" [value]="recentSearch.searchTerm">
+                    <span>{{ recentSearch.searchTerm }}</span> |
+                    <small>{{ recentSearch.timestamp | date:'short' }}</small>
+                </mat-option>
+            </mat-optgroup>
 
         </mat-autocomplete>
+
     </mat-form-field>
+
+    <!-- submit btn -->
+    <button mat-raised-button type="submit">
+        <mat-icon matSuffix>
+            search
+        </mat-icon>
+    </button>
+    
 </form>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GithubApiService } from 'src/app/common/services/github/github-api.service';
 
 @Component({
   selector: 'app-user-ranking',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserRankingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private githubApiService: GithubApiService) { }
 
   ngOnInit(): void {
+  
   }
 
 }

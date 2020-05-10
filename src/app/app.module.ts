@@ -15,11 +15,18 @@ import { AppComponent } from 'src/app/app.component';
 import { SearchFormComponent } from 'src/app/components/search-form/search-form.component';
 import { UserRankingComponent } from 'src/app/components/user-ranking/user-ranking.component';
 
+// services
+import { DataPersistenceService } from 'src/app/common/services/data-persistence/data-persistence.service';
+
+// pipes
+import { SortByPipe } from 'src/app/common/pipes/sort-by.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     SearchFormComponent,
     UserRankingComponent,
+    SortByPipe,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,7 @@ import { UserRankingComponent } from 'src/app/components/user-ranking/user-ranki
     AgGridModule.withComponents([]),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [DataPersistenceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

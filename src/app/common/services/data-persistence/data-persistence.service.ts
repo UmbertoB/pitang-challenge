@@ -25,8 +25,8 @@ export class DataPersistenceService<T extends GenericId> {
 
     try {
       if (id) {
-        result = result.filter((client: T) => {
-          return client.id === id;
+        result = result.filter((item: T) => {
+          return item.id === id;
         });
       }
     } catch (error) {
@@ -36,31 +36,40 @@ export class DataPersistenceService<T extends GenericId> {
     return result[0];
   }
 
-  public update(key: string, data: T): void {
-    const clients = this.read(key);
+  public update(key: string, data: T, propertyToMatch?: string): void {
+    const items = this.read(key);
+    const itemFound = items.find(item => item[propertyToMatch] === data[propertyToMatch]);
+    const existentId = itemFound.id;
     let index: number;
 
     try {
-      index = clients.findIndex((client) => client.id === data.id);
-      clients[index] = data;
+      index = items.findIndex((item) => item[propertyToMatch || 'id'] === data[propertyToMatch || 'id']);
+      items[index] = {...data, id: existentId };
     } catch (error) {
       console.log(error);
     }
 
-    localStorage.setItem(key, JSON.stringify(clients));
+    localStorage.setItem(key, JSON.stringify(items));
+  }
+
+  public itemExistsInStorage(key: string, propertyToMatch: string, value: string): boolean {
+    const items = this.read(key);
+    if (items) {
+      return items.map(item => item[propertyToMatch]).includes(value);
+    }
   }
 
   public delete(key: string, data: T): void {
-    const clients = this.read(key);
-    let clientsExceptOne = clients;
+    const items = this.read(key);
+    let itemsExceptOne = items;
 
     try {
-      clientsExceptOne = clients.filter((client) => client.id !== data.id);
+      itemsExceptOne = items.filter((item) => item.id !== data.id);
     } catch (error) {
       console.log(error);
     }
 
-    localStorage.setItem(key, JSON.stringify(clientsExceptOne));
+    localStorage.setItem(key, JSON.stringify(itemsExceptOne));
   }
 
 }
