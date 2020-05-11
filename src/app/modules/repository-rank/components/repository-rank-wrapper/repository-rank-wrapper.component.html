@@ -1,3 +1,18 @@
-<ag-grid-angular style="width: 100%; height: 30vh; margin-top: 10px;" class="ag-theme-alpine"
-    [rowData]="rowData | async" [columnDefs]="colDefs">
-</ag-grid-angular>
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Linguagem" aria-label="Linguagem" [matAutocomplete]="auto" [formControl]="languageCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let language of avaiableLanguages | async" [value]="language" (click)="filterByLanguage(language)">
+                    <span class="example-option-img" [ngStyle]="{ 'background': colors[language].color }"></span>
+                    <span>{{language}}</span>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </mat-card-header>
+    <mat-card-content>
+        <ag-grid-angular style="width: 100%; height: 30vh; margin-top: 10px;" class="ag-theme-alpine"
+            [rowData]="rowData | async" [columnDefs]="colDefs">
+        </ag-grid-angular>
+    </mat-card-content>
+</mat-card>

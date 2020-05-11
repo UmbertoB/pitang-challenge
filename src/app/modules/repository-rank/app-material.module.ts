@@ -11,6 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialImportedModules = [
   MatInputModule,
@@ -24,6 +25,7 @@ const MaterialImportedModules = [
   MatListModule,
   MatToolbarModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
 ];
 
 @NgModule({

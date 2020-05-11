@@ -21,12 +21,12 @@ export class GithubApiService {
     });
   }
 
-  public getBestRepositories(q: string): Observable<any> {
+  public getBestRepositories(language: string): Observable<any> {
 
-    q = 'language:javascript';
+    const q = `language:${language}`;
 
     return new Observable((observer) => {
-      this.http.get<any>(`${this.GITHUB_API}/search/repositories?`,
+      this.http.get<any>(`${this.GITHUB_API}/search/repositories`,
       {
         params: {
           q,
@@ -40,18 +40,10 @@ export class GithubApiService {
     });
   }
 
-  public getAllGithubAcceptedLanguages(q: string): Observable<any> {
+  public getAllGithubAcceptedLanguages(): Observable<any> {
     return new Observable((observer) => {
-      this.http.get<any>(`${this.GITHUB_API}/search/repositories?`,
-      {
-        params: {
-          q,
-          sort: 'stars',
-          order: 'desc',
-        },
-        headers: { Authorization: 'token 6deef576dda057412108a448b58eb029b00e2cad',
-      }}).subscribe(
-        (data) => observer.next(data.items),
+      this.http.get<any>(`${this.GITHUB_API}/languages`).subscribe(
+        (data) => observer.next(data),
         (error: HttpErrorResponse) => observer.error(error)
       );
     });
