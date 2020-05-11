@@ -7,11 +7,16 @@ import User from '../models/User';
 export class UserSharedDataService {
 
     public readonly userDataSubscriber = new Subject<User | HttpErrorResponse>();
+    public readonly loadingUserDataSubscriber = new Subject<boolean>();
 
     constructor() {}
 
     public changeUserDetail(newData: User | HttpErrorResponse) {
       this.userDataSubscriber.next(newData);
+    }
+
+    public updateLoadingUserDataStatus(status: boolean) {
+        this.loadingUserDataSubscriber.next(status);
     }
 
 }

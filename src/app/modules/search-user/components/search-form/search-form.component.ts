@@ -22,7 +22,7 @@ export class SearchFormComponent implements OnInit {
   constructor(
     private githubApiService: GithubApiService,
     private recentSearchesPS: RecentSearchPersistenceService,
-    private userSharedDataService: UserSharedDataService,
+    private shared: UserSharedDataService,
     private _snackBar: MatSnackBar,
   ) { }
 
@@ -45,16 +45,19 @@ export class SearchFormComponent implements OnInit {
 
       this.updateRecentSearchesList();
 
+      this.shared.updateLoadingUserDataStatus(true);
       this.githubApiService.getUser(searchedUser).subscribe(
         (res: User) => {
-          this.userSharedDataService.changeUserDetail(res);
+          this.shared.updateLoadingUserDataStatus(false);
+          this.shared.changeUserDetail(res);
 
           this.recentSearchesPS.addAvatarToRecentSearch(searchedUser, res.avatar_url);
 
           this.updateRecentSearchesList();
         },
         (err: any) => {
-          return this.userSharedDataService.changeUserDetail(err);
+          this.shared.updateLoadingUserDataStatus(false);
+          return this.shared.changeUserDetail(err);
         },
       );
     } else {
