@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
     <div class="app-content">
-      <app-search-form></app-search-form>
       <router-outlet></router-outlet>
     </div>
   `,

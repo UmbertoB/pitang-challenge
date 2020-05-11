@@ -1,0 +1,26 @@
+.detail-wrapper {
+  margin: 15px 0;
+
+  .user-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    flex-direction: column;
+    margin: 0 25%;
+    text-align: center;
+
+    img {
+      width: 25%;
+    }
+  }
+
+  ul {
+    padding-left: 10px;
+  }
+
+  .example-header-image {
+    background-size: cover;
+  }
+
+}

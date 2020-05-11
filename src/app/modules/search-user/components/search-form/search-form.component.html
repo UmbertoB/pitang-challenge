@@ -1,0 +1,36 @@
+<form class="example-form" (submit)="searchUser()">
+
+    <mat-form-field class="search-input-wrapper" appearance="outline">
+
+        <mat-label>Buscar Usuário</mat-label>
+
+        <input matInput [formControl]="searchCtrl">
+
+        <button mat-mini-fab color="primary" matSuffix type="submit">
+            <mat-icon matSuffix>
+                search
+            </mat-icon>
+        </button>
+
+    </mat-form-field>
+
+</form>
+
+<mat-accordion>
+    <mat-expansion-panel [expanded]="xpandStatus" (click)='xpandStatus=xpandStatus ? false : true'>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Buscas Recentes
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-action-list role="list">
+            <button mat-list-item role="listitem" (click)="selectRecentSearch(recentSearch.searchTerm)"
+                *ngFor="let recentSearch of recentSearches  | sortBy:'desc':'timestamp' | slice:0:5">
+                <img class="recent-search-avatar" matListAvatar [src]="recentSearch.avatarUrl ? recentSearch.avatarUrl : 'assets/icon.png'" alt="recent-search-avatar">
+                <span>{{ recentSearch.searchTerm }}</span>
+            </button>
+        </mat-action-list>
+
+    </mat-expansion-panel>
+</mat-accordion>

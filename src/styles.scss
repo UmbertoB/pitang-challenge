@@ -3,9 +3,31 @@
 @import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
 
 .ag-theme-alpine {
-    @include ag-theme-alpine((
-        odd-row-background-color: #CFD8DC
-    ));
+  @include ag-theme-alpine(
+    (
+      odd-row-background-color: #cfd8dc
+    )
+  );
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+
+  .mat-form-field-wrapper {
+      padding-bottom: 5px;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: 0;
+  }
+  .mat-list-item-content {
+    padding-left: 0!important;
+  }
+
+}
+
