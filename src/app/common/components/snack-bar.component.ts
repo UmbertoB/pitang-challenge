@@ -2,6 +2,6 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'app-snack-bar',
-    template: 'snack-bar-component-example-snack.html',
+    template: 'Preencha o campo de busca',
   })
 export class SnackBarComponent { }

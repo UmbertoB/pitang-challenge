@@ -7,9 +7,21 @@
   margin: 0 auto;
 }
 
+.header-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
 .pitang-logo {
-  margin-top: 9px;
+  margin: 12px 0;
   width: 7.5%;
+}
+
+.active-link {
+  border-bottom: 2px solid blue;
 }
 
 // mobileS

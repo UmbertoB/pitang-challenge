@@ -3,17 +3,9 @@
         <div class="header-content">
             <img src="assets/pitang-logo.png" class="pitang-logo" />
             <div>
-                <mat-button-toggle-group>
-                    <mat-button-toggle routerLink="search-user">
-                        <span class="route-link">Buscador</span>
-                    </mat-button-toggle>
-                    <mat-button-toggle routerLink="repository-rank">
-                        <span class="route-link">Repositórios</span>
-                    </mat-button-toggle>
-                    <mat-button-toggle>
-                        <span class="route-link">Usuários</span>
-                    </mat-button-toggle>
-                </mat-button-toggle-group>
+                <button mat-button routerLink="search-user" routerLinkActive="active-link">Buscador</button>
+                <button mat-button routerLink="repository-rank" routerLinkActive="active-link">Repositórios</button>
+                <button mat-button routerLinkActive="active-link">Usuários</button>
             </div>
         </div>
     </mat-toolbar>

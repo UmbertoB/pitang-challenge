@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSharedDataService } from '../../services/user-shared-data.service';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import User from '../../models/User';
+// services
+import { UserSharedDataService } from 'src/app/modules/search-user/services/user-shared-data.service';
+// model
+import User from 'src/app/modules/search-user/models/user.model';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,15 +19,15 @@ export class UserDetailComponent implements OnInit {
 
   cols = {
     followers: [
-      {headerName: 'Name', field: 'login', sortable: true, filter: true},
+      { headerName: 'Name', field: 'login', sortable: true, filter: true },
     ],
     following: [
-      {headerName: 'Name', field: 'login', sortable: true, filter: true},
+      { headerName: 'Name', field: 'login', sortable: true, filter: true },
     ],
     repos: [
-      {headerName: 'Name', field: 'name', sortable: true, filter: true},
-      {headerName: 'Stars', field: 'stargazers_count', sortable: true, filter: true},
-      {headerName: 'Forks', field: 'forks', sortable: true, filter: true}
+      { headerName: 'Name', field: 'name', sortable: true, filter: true },
+      { headerName: 'Stars', field: 'stargazers_count', sortable: true, filter: true },
+      { headerName: 'Forks', field: 'forks', sortable: true, filter: true }
     ],
   };
 

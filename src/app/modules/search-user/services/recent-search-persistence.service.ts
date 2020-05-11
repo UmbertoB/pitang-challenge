@@ -74,18 +74,18 @@ export class RecentSearchPersistenceService {
     public recentSearchExists(searchTerm: string): RecentSearchStorage {
         const recentSearches = this.read();
         if (recentSearches) {
-            return recentSearches.find(r => r.searchTerm.toLocaleLowerCase() === searchTerm.toLocaleLowerCase());
+            return recentSearches.find(r => r.searchTerm.toLowerCase() === searchTerm.toLowerCase());
         }
     }
 
-    public addAvatarToRecentSearch(searchTerm: string, avatarUrl: string): void {
+    public setOriginalRecentSearchData(searchTerm: string, avatarUrl: string, userName: string): void {
         const items = this.read();
         const data = this.getBySearchTerm(searchTerm);
         let index;
 
         try {
             index = items.findIndex((item) => item.id === data.id);
-            items[index] = { ...data, avatarUrl };
+            items[index] = { ...data, avatarUrl, searchTerm: userName };
         } catch (error) {
             console.log(error);
         }

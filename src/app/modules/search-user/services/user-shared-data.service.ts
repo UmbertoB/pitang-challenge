@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import User from '../models/User';
+import User from 'src/app/modules/search-user/models/user.model';
 
 @Injectable()
 export class UserSharedDataService {

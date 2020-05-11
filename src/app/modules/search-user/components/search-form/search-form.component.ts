@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { GithubApiService } from 'src/app/common/services/github/github-api.service';
-import { DataPersistenceService } from 'src/app/common/services/data-persistence/data-persistence.service';
-import { RecentSearchStorage, DataPersistenceKeys } from 'src/app/common/services/data-persistence/data-persistence.types';
-import { UserSharedDataService } from '../../services/user-shared-data.service';
-import User from '../../models/User';
+// components
 import { SnackBarComponent } from 'src/app/common/components/snack-bar.component';
-import { RecentSearchPersistenceService } from '../../services/recent-search-persistence.service';
+// services
+import { GithubApiService } from 'src/app/common/services/github/github-api.service';
+import { UserSharedDataService } from 'src/app/modules/search-user/services/user-shared-data.service';
+import { RecentSearchPersistenceService } from 'src/app/modules/search-user/services/recent-search-persistence.service';
+// models
+import { RecentSearchStorage } from 'src/app/common/models/data-persistence.models';
+import User from 'src/app/modules/search-user/models/user.model';
 
 @Component({
   selector: 'app-search-form',
@@ -23,7 +25,7 @@ export class SearchFormComponent implements OnInit {
     private githubApiService: GithubApiService,
     private recentSearchesPS: RecentSearchPersistenceService,
     private shared: UserSharedDataService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class SearchFormComponent implements OnInit {
           this.shared.updateLoadingUserDataStatus(false);
           this.shared.changeUserDetail(res);
 
-          this.recentSearchesPS.addAvatarToRecentSearch(searchedUser, res.avatar_url);
+          this.recentSearchesPS.setOriginalRecentSearchData(searchedUser, res.avatar_url, res.login);
 
           this.updateRecentSearchesList();
         },
@@ -61,7 +63,7 @@ export class SearchFormComponent implements OnInit {
         },
       );
     } else {
-      this._snackBar.openFromComponent(SnackBarComponent, { duration: 2000, data: { msg: 'Preencha o campo de busca' } });
+      this.snackBar.openFromComponent(SnackBarComponent, { duration: 2000 });
     }
   }
 

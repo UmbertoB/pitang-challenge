@@ -24,13 +24,11 @@ export class RepositoryRankWrapperComponent implements OnInit {
 
   avaiableLanguages: any;
 
-  colors: any;
+  colors = ghColors;
 
   constructor(private githubApiService: GithubApiService) { }
 
   ngOnInit(): void {
-
-    this.colors = ghColors;
 
     this.avaiableLanguages = this.languageCtrl.valueChanges
     .pipe(
@@ -39,7 +37,6 @@ export class RepositoryRankWrapperComponent implements OnInit {
     );
 
     this.rowData = this.githubApiService.getBestRepositories('');
-
 
   }
 
@@ -53,6 +50,7 @@ export class RepositoryRankWrapperComponent implements OnInit {
     return Object.keys(ghColors).filter(state => state.toLowerCase().indexOf(filterValue) === 0);
   }
 
+  // ag-grid formatter functions
   private bracketsFormatter(params) {
     return new DatePipe('pt').transform(params.value, 'short');
   }
