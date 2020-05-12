@@ -8,8 +8,14 @@ const routes: Routes = [
     loadChildren: () => import('src/app/modules/search-user/search-user.module').then(m => m.SearchUserModule)
   },
   {
-    path: 'repository-rank',
-    loadChildren: () => import('src/app/modules/repository-rank/repository-rank.module').then(m => m.RepositoryRankModule)
+    path: 'repository-trends',
+    loadChildren: () => import('src/app/modules/trends/trends.module').then(m => m.TrendsModule),
+    data: { entity: 'repositories' }
+  },
+  {
+    path: 'user-trends',
+    loadChildren: () => import('src/app/modules/trends/trends.module').then(m => m.TrendsModule),
+    data: { entity: 'developers' }
   },
   {
     path: '**',

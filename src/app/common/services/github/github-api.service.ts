@@ -21,20 +21,16 @@ export class GithubApiService {
     });
   }
 
-  public getBestRepositories(language: string): Observable<any> {
-
-    const q = `language:${language}`;
+  public getThrends(entity: string, filters): Observable<any> {
 
     return new Observable((observer) => {
-      this.http.get<any>(`${this.GITHUB_API}/search/repositories`,
+      this.http.get<any>(`${this.GITHUB_TRENDING_API}/${entity}`,
       {
         params: {
-          q,
-          sort: 'stars',
-          order: 'desc',
+          ...filters,
         },
       }).subscribe(
-        (data) => observer.next(data.items),
+        (data) => observer.next(data),
         (error: HttpErrorResponse) => observer.error(error)
       );
     });

@@ -1,0 +1,60 @@
+<form class="trends-filters" (submit)="filterList()" [formGroup]="filterForm">
+
+    <mat-form-field class="language-filter-wrapper" appearance="outline">
+
+        <mat-label>Linguagem</mat-label>
+
+        <mat-select matInput formControlName="languageCtrl">
+            <mat-option *ngFor="let language of avaiableLanguages" [value]="language.urlParam">
+                <span class="example-option-img" [ngStyle]="{ 'background': colors[language.name] ? colors[language.name].color : '#000' }"></span>
+                <span>{{ language.name }}</span>
+            </mat-option>
+        </mat-select>
+
+        <!-- <input matInput [matAutocomplete]="auto" formControlName="languageCtrl">
+
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option>
+
+            </mat-option>
+        </mat-autocomplete> -->
+
+    </mat-form-field>
+
+    <mat-form-field class="language-filter-wrapper" appearance="outline">
+
+        <mat-label>Período</mat-label>
+
+        <mat-select matInput formControlName="periodCtrl">
+            <mat-option value="monthly">Mensal</mat-option>
+            <mat-option value="weekly">Semanal</mat-option>
+            <mat-option value="daily">Diário</mat-option>
+        </mat-select>
+
+    </mat-form-field>
+
+    <button mat-mini-fab color="primary" matSuffix type="submit">
+        <mat-icon matSuffix>
+            filter_list
+        </mat-icon>
+    </button>
+</form>
+
+<mat-card class="example-card">
+
+    <mat-card-content *ngIf='(rowData | async); else loading'>
+        <ag-grid-angular style="width: 100%; height: 30vh; margin-top: 10px;" class="ag-theme-alpine"
+            [rowData]="rowData | async" [columnDefs]="colDefs">
+        </ag-grid-angular>
+    </mat-card-content>
+
+
+
+</mat-card>
+
+
+<ng-template #loading>
+    <div style="padding: 40px; display: flex; justify-content: center; align-items: center; vertical-align: middle;">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
