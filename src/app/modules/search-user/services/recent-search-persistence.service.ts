@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as uuid from 'uuid/v1';
+import { DataPersistenceService } from 'src/app/common/services/data-persistence/data-persistence.service';
 
 
 export interface RecentSearchStorage {
@@ -11,36 +12,11 @@ export interface RecentSearchStorage {
 
 
 @Injectable()
-export class RecentSearchPersistenceService {
+export class RecentSearchPersistenceService extends DataPersistenceService<RecentSearchStorage> {
 
-    private key = 'RECENT_SEARCHES';
-
-    constructor() { }
-
-    public create(data: RecentSearchStorage): void {
-        const $key = localStorage.getItem(this.key);
-        const $$key = $key ? [...JSON.parse($key), { ...data, id: uuid() }] : [{ ...data, id: uuid() }];
-        localStorage.setItem(this.key, JSON.stringify($$key));
-    }
-
-    public read(): RecentSearchStorage[] {
-        return JSON.parse(localStorage.getItem(this.key));
-    }
-
-    public get(id: string = null): RecentSearchStorage {
-        let result = JSON.parse(localStorage.getItem(this.key));
-
-        try {
-            if (id) {
-                result = result.filter((item: RecentSearchStorage) => {
-                    return item.id === id;
-                });
-            }
-        } catch (error) {
-            console.log(error);
-        }
-
-        return result[0];
+    constructor() {
+        super();
+        this.key = 'RECENT_SEARCHES';
     }
 
     public getBySearchTerm(searchTerm: string): RecentSearchStorage {

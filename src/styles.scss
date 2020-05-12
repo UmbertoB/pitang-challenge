@@ -1,14 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
-@import "../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
+@import "../node_modules/ag-grid-community/src/styles/mixins/_ag-theme-mixins.scss";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-material.min.css";
 
-.ag-theme-alpine {
-  @include ag-theme-alpine(
-    (
-      odd-row-background-color: #cfd8dc
-    )
-  );
-}
 html,
 body {
   height: 100%;
@@ -34,3 +28,15 @@ body {
 
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+opacity: none;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #bbbbbb;
+}

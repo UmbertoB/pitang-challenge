@@ -19,7 +19,7 @@ import User from 'src/app/modules/search-user/models/user.model';
 export class SearchFormComponent implements OnInit {
   searchCtrl = new FormControl('', Validators.required);
   recentSearches: RecentSearchStorage[];
-  xpandStatus: boolean;
+  xpandStatus = false;
 
   constructor(
     private githubApiService: GithubApiService,
@@ -33,7 +33,6 @@ export class SearchFormComponent implements OnInit {
   }
 
   public searchUser() {
-
     const { valid: isInputValid, value: searchedUser } = this.searchCtrl;
 
     if (isInputValid) {
@@ -69,7 +68,6 @@ export class SearchFormComponent implements OnInit {
 
   public selectRecentSearch(searchTerm: string) {
     this.searchCtrl.setValue(searchTerm);
-    this.xpandStatus = true;
     this.searchUser();
   }
 

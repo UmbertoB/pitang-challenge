@@ -35,8 +35,11 @@
 
             <ag-grid-angular 
                 *ngIf="rowData" 
-                style="width: 100%; height: 30vh; margin-top: 10px;" 
-                class="ag-theme-alpine"
+                style="width: 100%; margin-top: 10px;"
+                domLayout='autoHeight'
+                class="ag-theme-material"
+                rowHeight="auto"
+                [localeText]="localeText"
                 [rowData]="rowData | async" 
                 [columnDefs]="cols[showListType]">
             </ag-grid-angular>
@@ -56,6 +59,7 @@
 
 </div>
 
-<div *ngIf="loadingUserData" style="padding: 40px; display: flex; justify-content: center; align-items: center; vertical-align: middle;">
+<div *ngIf="loadingUserData"
+    style="padding: 40px; display: flex; justify-content: center; align-items: center; vertical-align: middle;">
     <mat-spinner></mat-spinner>
 </div>

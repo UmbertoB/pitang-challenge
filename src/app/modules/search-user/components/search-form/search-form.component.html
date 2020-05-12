@@ -17,7 +17,7 @@
 </form>
 
 <mat-accordion>
-    <mat-expansion-panel [expanded]="xpandStatus" (click)='xpandStatus=xpandStatus ? false : true'>
+    <mat-expansion-panel [expanded]="xpandStatus" (click)='xpandStatus=!xpandStatus'>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Buscas Recentes
@@ -27,8 +27,11 @@
         <mat-action-list role="list">
             <button mat-list-item role="listitem" (click)="selectRecentSearch(recentSearch.searchTerm)"
                 *ngFor="let recentSearch of recentSearches  | sortBy:'desc':'timestamp' | slice:0:5">
-                <img class="recent-search-avatar" matListAvatar [src]="recentSearch.avatarUrl ? recentSearch.avatarUrl : 'assets/icon.png'" alt="recent-search-avatar">
+                <img class="recent-search-avatar" matListAvatar [src]="recentSearch.avatarUrl ? recentSearch.avatarUrl : 'assets/icon.png'" alt="recent-search-avatar" />
                 <span>{{ recentSearch.searchTerm }}</span>
+            </button>
+            <button mat-list-item role="listitem" *ngIf="recentSearches.length < 1">
+                <strong>Nenhuma busca recente</strong>
             </button>
         </mat-action-list>
 

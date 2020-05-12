@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GithubApiService } from 'src/app/common/services/github/github-api.service';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ghColors } from './colors';
-import { languages } from './languages';
-import { ActivatedRoute, Router } from '@angular/router';
-import { columnDefs } from './columns';
+import { GithubApiService } from 'src/app/common/services/github/github-api.service';
+import { ghColors } from 'src/app/modules/trends/utils/colors';
+import { languages } from 'src/app/modules/trends/utils/languages';
+import { columnDefs } from 'src/app/modules/trends/utils/columns';
 
 @Component({
   selector: 'app-trends-wrapper',
@@ -28,6 +28,10 @@ export class TrendsWrapperComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) { }
 
+  public localeText = {
+    noRowsToShow: 'Nenhum dado encontrado',
+  };
+
   ngOnInit(): void {
 
     this.filterForm = this.fb.group({
@@ -38,24 +42,21 @@ export class TrendsWrapperComponent implements OnInit {
     this.activatedRoute.data.subscribe(routeData => {
       this.entity = routeData.entity;
       this.colDefs = columnDefs[this.entity];
-      const filters = {
-        language: this.filterForm.get('languageCtrl').value,
-        since: this.filterForm.get('periodCtrl').value,
-      };
-      this.rowData = this.githubApiService.getThrends(routeData.entity, filters);
+      this.updateRowData();
     });
 
   }
 
   public filterList() {
+    this.updateRowData();
+  }
 
+  private updateRowData() {
     const filters = {
       language: this.filterForm.get('languageCtrl').value,
       since: this.filterForm.get('periodCtrl').value,
     };
     this.rowData = this.githubApiService.getThrends(this.entity, filters);
-
   }
-
 
 }

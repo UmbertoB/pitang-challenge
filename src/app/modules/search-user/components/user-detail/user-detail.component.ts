@@ -19,9 +19,11 @@ export class UserDetailComponent implements OnInit {
 
   cols = {
     followers: [
+      { headerName: 'Name', field: 'avatar_url', sortable: true, filter: true, cellRenderer: this.customCellRendererFunc },
       { headerName: 'Name', field: 'login', sortable: true, filter: true },
     ],
     following: [
+      { headerName: 'Name', field: 'avatar_url', sortable: true, filter: true, cellRenderer: this.customCellRendererFunc },
       { headerName: 'Name', field: 'login', sortable: true, filter: true },
     ],
     repos: [
@@ -30,6 +32,11 @@ export class UserDetailComponent implements OnInit {
       { headerName: 'Forks', field: 'forks', sortable: true, filter: true }
     ],
   };
+
+  public localeText = {
+    noRowsToShow: 'Nenhum dado encontrado',
+  };
+
 
   rowData: any;
 
@@ -58,6 +65,10 @@ export class UserDetailComponent implements OnInit {
   public changeListData(value: string): void {
     this.showListType = value;
     this.rowData = this.http.get(`https://api.github.com/users/${this.userData.login}/${value}`);
+  }
+
+  public customCellRendererFunc(params): string {
+    return `<img src="${params.value}" style="width: 30%;border-radius: 50px;"/>`;
   }
 
 }
