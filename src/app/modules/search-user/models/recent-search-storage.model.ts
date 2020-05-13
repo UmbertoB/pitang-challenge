@@ -1,4 +1,4 @@
-export interface RecentSearchStorage {
+export default interface RecentSearchStorage {
     id?: string;
     searchTerm: string;
     timestamp: Date;

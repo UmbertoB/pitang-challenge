@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // components
-import { SnackBarComponent } from 'src/app/common/components/snack-bar.component';
+import { FillSearchInputSnackbar } from 'src/app/common/components/fill-search-input.snackbar';
 // services
 import { GithubApiService } from 'src/app/common/services/github/github-api.service';
 import { UserSharedDataService } from 'src/app/modules/search-user/services/user-shared-data.service';
 import { RecentSearchPersistenceService } from 'src/app/modules/search-user/services/recent-search-persistence.service';
 // models
-import { RecentSearchStorage } from 'src/app/common/models/data-persistence.models';
+import RecentSearchStorage from 'src/app/modules/search-user/models/recent-search-storage.model';
 import User from 'src/app/modules/search-user/models/user.model';
 
 @Component({
@@ -37,9 +37,9 @@ export class SearchFormComponent implements OnInit {
 
     if (isInputValid) {
 
-      const x = this.recentSearchesPS.recentSearchExists(searchedUser);
-      if (x) {
-        this.recentSearchesPS.updateTimestamp(x);
+      const existentRecentSearch = this.recentSearchesPS.recentSearchExists(searchedUser);
+      if (existentRecentSearch) {
+        this.recentSearchesPS.updateTimestamp(existentRecentSearch);
       } else {
         this.recentSearchesPS.create({ timestamp: new Date(), searchTerm: searchedUser });
       }
@@ -62,7 +62,7 @@ export class SearchFormComponent implements OnInit {
         },
       );
     } else {
-      this.snackBar.openFromComponent(SnackBarComponent, { duration: 2000 });
+      this.snackBar.openFromComponent(FillSearchInputSnackbar, { duration: 2000 });
     }
   }
 

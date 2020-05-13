@@ -36,13 +36,4 @@ export class GithubApiService {
     });
   }
 
-  public getAllGithubAcceptedLanguages(): Observable<any> {
-    return new Observable((observer) => {
-      this.http.get<any>(`${this.GITHUB_API}/languages`).subscribe(
-        (data) => observer.next(data),
-        (error: HttpErrorResponse) => observer.error(error)
-      );
-    });
-  }
-
 }
