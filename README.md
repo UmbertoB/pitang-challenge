@@ -1,6 +1,14 @@
-# PitangChallenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
+<p align="center">
+  <img src="https://jobs.solides.com/assets/img/logos_empresas/logo__pitang.png" width="320" alt="Pitang Logo" />
+</p>
+
+<p align="center">Desafio Pitang</p>
+
+<p align="center>
+  <a href="http://pitang-challenge.s3-website.us-east-2.amazonaws.com">Pitang Challenge S3</a>
+</p>
+
 
 ## Development server
 
