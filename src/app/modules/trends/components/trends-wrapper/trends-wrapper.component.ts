@@ -56,7 +56,7 @@ export class TrendsWrapperComponent implements OnInit {
       language: this.filterForm.get('languageCtrl').value,
       since: this.filterForm.get('periodCtrl').value,
     };
-    this.rowData = this.githubApiService.getThrends(this.entity, filters);
+    this.rowData = this.githubApiService.getTrends(this.entity, filters);
   }
 
 }

@@ -13,7 +13,6 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 
 // components
 import { AppComponent } from 'src/app/app.component';
-import { TokenInterceptorService } from 'src/app/common/services/interceptor/token-interceptor.service';
 
 // others
 import { registerLocaleData } from '@angular/common';
@@ -37,11 +36,6 @@ registerLocaleData(ptBr);
     BrowserAnimationsModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    },
     { provide: LOCALE_ID, useValue: 'pt' }
   ],
   bootstrap: [AppComponent]

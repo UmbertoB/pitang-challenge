@@ -4,5 +4,5 @@
 </p>
 
 <h1 align="center">
-    [Desafio Pitang](http://pitang-challenge.s3-website.us-east-2.amazonaws.com).
+    [Desafio Pitang](https://github.com/angular/angular-cli/blob/master/README.md).
 </h1>
