@@ -1,3 +1,7 @@
+<h2 class="trends-title">
+    {{ entity === 'repositories' ? 'Repositorios' : 'Usuários'  }} mais populares
+</h2>
+
 <form class="trends-filters" (submit)="filterList()" [formGroup]="filterForm">
 
     <mat-form-field class="language-filter-wrapper" appearance="outline">
@@ -26,9 +30,9 @@
         <mat-label>Período</mat-label>
 
         <mat-select matInput formControlName="periodCtrl">
-            <mat-option value="monthly">Mensal</mat-option>
-            <mat-option value="weekly">Semanal</mat-option>
-            <mat-option value="daily">Diário</mat-option>
+            <mat-option value="monthly">No mês</mat-option>
+            <mat-option value="weekly">Na semana</mat-option>
+            <mat-option value="daily">Hoje</mat-option>
         </mat-select>
 
     </mat-form-field>
@@ -46,7 +50,8 @@
         <ag-grid-angular
             style="width: 100%; margin-top: 10px;" 
             class="ag-theme-material"
-            domLayout='autoHeight'
+            domLayout="autoHeight"
+            rowHeight="60"
             [rowData]="rowData | async" 
             [columnDefs]="colDefs"
             [localeText]="localeText"
