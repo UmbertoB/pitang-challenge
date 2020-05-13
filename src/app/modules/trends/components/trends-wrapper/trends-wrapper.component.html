@@ -10,7 +10,7 @@
 
         <mat-select matInput formControlName="languageCtrl">
             <mat-option *ngFor="let language of avaiableLanguages" [value]="language.urlParam">
-                <span class="example-option-img" [ngStyle]="{ 'background': colors[language.name] ? colors[language.name].color : '#000' }"></span>
+                <span class="trends-option-img" [ngStyle]="{ 'background': colors[language.name] ? colors[language.name].color : '#000' }"></span>
                 <span>{{ language.name }}</span>
             </mat-option>
         </mat-select>

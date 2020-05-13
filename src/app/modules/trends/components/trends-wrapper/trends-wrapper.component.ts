@@ -5,6 +5,7 @@ import { GithubApiService } from 'src/app/common/services/github/github-api.serv
 import { ghColors } from 'src/app/modules/trends/utils/language-color.utils';
 import { languages } from 'src/app/modules/trends/utils/languages.utils';
 import { columnDefs } from 'src/app/modules/trends/utils/ag-grid.utils';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-trends-wrapper',
@@ -58,5 +59,6 @@ export class TrendsWrapperComponent implements OnInit {
     };
     this.rowData = this.githubApiService.getTrends(this.entity, filters);
   }
+
 
 }

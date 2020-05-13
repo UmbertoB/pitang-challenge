@@ -4,6 +4,7 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { UserSharedDataService } from 'src/app/modules/search-user/services/user-shared-data.service';
 // model
 import User from 'src/app/modules/search-user/models/user.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-detail',
@@ -28,8 +29,9 @@ export class UserDetailComponent implements OnInit {
     ],
     repos: [
       { headerName: 'Name', field: 'name', sortable: true, filter: true },
-      { headerName: 'Stars', field: 'stargazers_count', sortable: true, filter: true },
-      { headerName: 'Forks', field: 'forks', sortable: true, filter: true }
+      { headerName: 'Stars', field: 'stargazers_count', valueFormatter: this.stargazersFormatter, sortable: true, filter: true },
+      { headerName: 'Forks', field: 'forks', sortable: true, filter: true },
+      { headerName: 'Última Atualização', field: 'updated_at', valueFormatter: this.dateFormatter, sortable: true, filter: true },
     ],
   };
 
@@ -67,8 +69,16 @@ export class UserDetailComponent implements OnInit {
     this.rowData = this.http.get(`https://api.github.com/users/${this.userData.login}/${value}`);
   }
 
-  public customCellRendererFunc(params): string {
+  private customCellRendererFunc(params): string {
     return `<img src="${params.value}" style="width: 30%;border-radius: 50px;"/>`;
+  }
+
+  private dateFormatter(params) {
+    return new DatePipe('pt').transform(params.value, 'short');
+  }
+
+  private stargazersFormatter(params) {
+    return params.value > 1000 ? (params.value / 1000).toFixed(0) + 'k' : params.value;
   }
 
 }
